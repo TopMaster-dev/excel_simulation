@@ -1,3 +1,6 @@
 venv
 .vscode
-input.json
+*.json
+__pycache__
+*.pycache__
+*.pyc
