@@ -257,7 +257,6 @@ def log_Z_cell(sheet_name, i):
     key = f"{sheet_name}!Z{i}"
     value = ef.YEAR(output[f"{sheet_name}!N{i}"])
     output[key] = value
-    print(f"{key} ------ {value}")
 
 def log1_Sheet_All():
     global output

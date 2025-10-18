@@ -1,0 +1,248 @@
+import excel_function as ef
+from excel_log import log1_Sheet_All
+
+data = {
+    "入力!E4": "サンプル",
+    "入力!E5": 30,
+    "入力!E7": "ミラージュ",
+    "入力!E8": 2025,
+    "入力!G8": 9,
+    "入力!E9": 43800000,
+    "入力!E10": "",
+    "入力!E12": 43800000,
+    "入力!E13": 35,
+    "入力!E14": 1.675,
+    "入力!E15": 5,
+    "入力!G15": 0.1,
+    "入力!E16": 2026,
+    "入力!G16": 2040,
+    "入力!E17": 2,
+    "入力!G17": 350000,
+    "入力!E18": 1,
+    "入力!E20": 210000,
+    "入力!E21": 5,
+    "入力!G21": 0.5,
+    "入力!E22": 2026,
+    "入力!G22": 2040,
+    "入力!E23": 4,
+    "入力!G23": 140000,
+    "入力!E24": "",
+    "入力!G24": "",
+    "入力!E25": 8920,
+    "入力!E26": 12090,
+    "入力!E27": 2,
+    "入力!G27": 0.5,
+    "入力!E28": 2026,
+    "入力!G28": 2036,
+    "入力!E29": 0,
+    "入力!E30": 10,
+    "入力!G30": 150000,
+    "入力!E31": 4,
+    "入力!G31": 2,
+    "入力!E32": 4,
+    "入力!G32": 150000,
+    "入力!E33": 126758716,
+    "入力!E34": 21126452,
+    "入力!E35": 42242905,
+    "入力!E36": 5376,
+    "入力!G36": 321776,
+    "入力!E37": 5501100,
+    "入力!E39": 43800000,
+    "入力!G39": 100,
+    "入力!E40": 3,
+    "入力!G40": 1,
+    "入力!E41": 2026,
+    "入力!G41": 2040,
+    "入力!E43": 3,
+    "入力!E44": 1.4,
+    "入力!E45": 0.3,
+    "入力!E47": 15,
+    "Log1!D6": 0
+}
+
+output = {}
+
+def output_init_cell(sheet_name):
+    global output
+    key = f"{sheet_name}!O2"
+    value = data["入力!E9"]
+    output[key] = value
+    key = f"{sheet_name}!T2"
+    value = data["入力!E10"]
+    output[key] = value
+    key = f"{sheet_name}!T3"
+    value = data["入力!E12"]
+    output[key] = value
+    key = f"{sheet_name}!V3"
+    value = data["入力!E13"]
+    output[key] = value
+    key = f"{sheet_name}!W3"
+    value = data["入力!E14"] / 100
+    output[key] = value
+    key = "入力!I11"
+    value = 12 - data["入力!G8"] + 1
+    output[key] = value
+    key = "入力!I32"
+    value = ef.IFERROR(int(data["入力!E33"] / 2 *  data["入力!E36"] / data["入力!G36"] * data["入力!E43"] / 100), 0)
+    output[key] = value
+    key = "入力!I33"
+    value = int((data["入力!E37"] *  data["入力!E43"]) / 100)
+    output[key] = value
+    key = "入力!I34"
+    value = ef.IFERROR(int(data["入力!E34"] * data["入力!E36"] / data["入力!G36"] * data["入力!E44"] / 100), 0)
+    output[key] = value
+    key = "入力!I35"
+    value = int((data["入力!E37"] *  data["入力!E44"]) / 100)
+    output[key] = value
+    key = "入力!I36"
+    value = ef.IFERROR(int(data["入力!E35"] * data["入力!E36"] / data["入力!G36"] * data["入力!E45"] / 100), 0)
+    output[key] = value
+    key = "入力!I37"
+    value = int((data["入力!E37"] *  data["入力!E45"]) / 100)
+    output[key] = value
+
+def output_C_cell(sheet_name, i):
+    global output
+    key = f"{sheet_name}!C{i}"
+    if(i == 7):
+        value = data["入力!E8"]
+    else:
+        value = output[f"{sheet_name}!C{i - 1}"] + 1
+    output[key] = value
+
+def output_D_cell(sheet_name, i):
+    global output
+    key = f"{sheet_name}!D{i}"
+    if(i == 7):
+        value = 0
+    else:
+        value = output[f"{sheet_name}!D{i - 1}"] + 1
+    output[key] = value
+
+def output_E_cell(sheet_name, i):
+    global output
+    key = f"{sheet_name}!E{i}"
+    if(i == 7):
+        value = data["入力!E5"]
+    else:
+        value = output[f"{sheet_name}!E{i - 1}"] + 1
+    output[key] = value
+
+def output_L_cell(sheet_name, i):
+    global output
+    key = f"{sheet_name}!L{i}"
+    input_E25 = data["入力!E25"]
+    if(i == 7):
+        value = input_E25 * output["入力!I11"] * output["入力!I11"] / 12
+    elif(i == 8):
+        value = input_E25 * 12
+    else:
+        value = output[f"{sheet_name}!L{i - 1}"]
+    output[key] = value
+
+def output_M_cell(sheet_name, i):
+    global output
+    key = f"{sheet_name}!M{i}"
+    input_E26 = data["入力!E26"]
+    if(i == 7):
+        value = input_E26 * output["入力!I11"]
+    else:
+        value = input_E26 * 12
+    output[key] = value
+
+def output_O_cell(sheet_name, i):
+    global output
+    key = f"{sheet_name}!O{i}"
+    input_E29 = data["入力!E29"]
+    if(i == 7):
+        value = input_E29 * output["入力!I11"] * output["入力!I11"] / 12
+    elif(i == 8):
+        value = input_E29 * 12
+    else:
+        value = output[f"{sheet_name}!O{i - 1}"]
+    output[key] = value
+
+def output_Q_cell(sheet_name, i):
+    global output
+    key = f"{sheet_name}!Q{i}"
+    input_E30 = data["入力!E30"]
+    if(i == 7):
+        value = ""
+    else:
+        value = ef.IFERROR(ef.IF(ef.MOD(output[f"{sheet_name}!D{i}"], input_E30)==0, 1, 0), 0)
+    output[key] = value
+
+def output_P_cell(sheet_name, i):
+    global output
+    key = f"{sheet_name}!P{i}"
+    input_G30 = data["入力!G30"]
+    if(i == 7):
+        value = ""
+    else:
+        value = input_G30 * output[f"{sheet_name}!Q{i}"]
+    output[key] = value
+
+def output_S_cell(sheet_name, i):
+    global output
+    key = f"{sheet_name}!S{i}"
+    input_E32 = data["入力!E32"]
+    if(i == 7):
+        value = ""
+    else:
+        value = ef.IFERROR(ef.IF(ef.MOD(output[f"{sheet_name}!D{i}"], input_E32)==0, 1, 0), 0)
+    output[key] = value
+
+def output_R_cell(sheet_name, i):
+    global output
+    key = f"{sheet_name}!R{i}"
+    input_G32 = data["入力!G32"]
+    if(i == 7):
+        value = ""
+    else:
+        value = input_G32 * output[f"{sheet_name}!S{i}"]
+    output[key] = value
+
+def output_T_cell(sheet_name, i):
+    global output
+    key = f"{sheet_name}!T{i}"
+    if(i == 7):
+        value = output["入力!I32"] + output["入力!I33"]
+    else:
+        value = ""
+    output[key] = value
+
+def output_U_cell(sheet_name, i):
+    global output
+    key = f"{sheet_name}!U{i}"
+    input_E21 = data["入力!E21"]
+    if(i == 7):
+        value = ""
+    else:
+        value = output["入力!I34"] + output["入力!I35"] + output["入力!I36"] + output["入力!I37"]
+    output[key] = value
+
+# def output_V_cell(sheet_name, i):
+#     global output
+#     key = f"{sheet_name}?V{i}"
+#     input_E21 = data["入力:E21"]
+#     if(i == 7):
+#         value = output[f"{sheet_name}?F{i}"] 
+#     else:
+#         value = output[f"{sheet_name}?V{i - 1}"]
+#     output[key] = value
+
+output = log1_Sheet_All()
+output_init_cell("Log1")
+for i in range(7, 66):
+    output_C_cell("Log1", i)
+    output_D_cell("Log1", i)
+    output_E_cell("Log1", i)
+    output_L_cell("Log1", i)
+    output_M_cell("Log1", i)
+    output_O_cell("Log1", i)
+    output_Q_cell("Log1", i)
+    output_P_cell("Log1", i)
+    output_S_cell("Log1", i)
+    output_R_cell("Log1", i)
+    output_T_cell("Log1", i)
+    output_U_cell("Log1", i)
