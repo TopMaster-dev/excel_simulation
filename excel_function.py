@@ -33,5 +33,17 @@ def MONTH(date):
     month = val.split("月")[0]
     return int(month)
 
+def MOD(value, divisor):
+    return value % divisor
+
+def IFERROR(value, error_value):
+    try:
+        return value
+    except Exception:
+        return error_value
+
+def OR_Empty_Value(v1, v2):
+    return 1 if (v1 == "" or v2 == "") else 0
+
 def MonthlyRepayment_FS(e_month, d_method, F1, F2, d_month, d_rate, pre_pay, pre_repay, dbt_remain):
     return monthly_repayment_fs(e_month, d_method, F1, F2, d_month, d_rate, pre_pay, pre_repay, dbt_remain)
