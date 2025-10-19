@@ -261,7 +261,8 @@ def log_Z_cell(sheet_name, i):
 def log1_Sheet_All():
     global output
     log_init_cell("Log1")
-    for i in range(6, output["Log1!D3"] + 7):
+    # for i in range(6, output["Log1!D3"] + 7):
+    for i in range(6, 727):
         log_D_cell("Log1", i)
         log_C_cell("Log1", i)
         log_E_cell("Log1", i)

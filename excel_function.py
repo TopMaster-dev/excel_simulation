@@ -45,5 +45,14 @@ def IFERROR(value, error_value):
 def OR_Empty_Value(v1, v2):
     return 1 if (v1 == "" or v2 == "") else 0
 
+def SUMIF(range_list, criteria, sum_range):
+    return sum(g for l, g in zip(range_list, sum_range) if l == criteria)
+
+def VLOOKUP(date_key, table, col_index, match_type):
+    if(not match_type):
+        for row in table:
+            if row[0] == date_key:
+                return row[col_index-1]
+        return None
 def MonthlyRepayment_FS(e_month, d_method, F1, F2, d_month, d_rate, pre_pay, pre_repay, dbt_remain):
     return monthly_repayment_fs(e_month, d_method, F1, F2, d_month, d_rate, pre_pay, pre_repay, dbt_remain)

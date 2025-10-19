@@ -128,6 +128,17 @@ def output_E_cell(sheet_name, i):
         value = output[f"{sheet_name}!E{i - 1}"] + 1
     output[key] = value
 
+def output_F_cell(sheet_name, i):
+    global output
+    key = f"{sheet_name}!F{i}"
+    range_list = []
+    sum_range = []
+    for l in range(6, output["Log1!D3"] + 7):
+        range_list.append(output[f"Log1!L{l}"])
+        sum_range.append(output[f"Log1!G{l}"])
+    value = ef.SUMIF(range_list, output[f"{sheet_name}!C{i}"], sum_range)
+    output[key] = value
+
 def output_L_cell(sheet_name, i):
     global output
     key = f"{sheet_name}!L{i}"
@@ -211,6 +222,15 @@ def output_T_cell(sheet_name, i):
         value = ""
     output[key] = value
 
+def output_J_cell(sheet_name, i):
+    global output
+    key = f"{sheet_name}!J{i}"
+    input_E10 = data["入力!E10"]
+    if(input_E10 == ""):
+        input_E10 = 0
+    value = input_E10
+    output[key] = value
+
 def output_U_cell(sheet_name, i):
     global output
     key = f"{sheet_name}!U{i}"
@@ -221,28 +241,219 @@ def output_U_cell(sheet_name, i):
         value = output["入力!I34"] + output["入力!I35"] + output["入力!I36"] + output["入力!I37"]
     output[key] = value
 
-# def output_V_cell(sheet_name, i):
-#     global output
-#     key = f"{sheet_name}?V{i}"
-#     input_E21 = data["入力:E21"]
-#     if(i == 7):
-#         value = output[f"{sheet_name}?F{i}"] 
-#     else:
-#         value = output[f"{sheet_name}?V{i - 1}"]
-#     output[key] = value
+def output_V_cell(sheet_name, i):
+    global output
+    key = f"{sheet_name}!V{i}"
+    t_value = output[f"{sheet_name}!T{i}"]
+    u_value = output[f"{sheet_name}!U{i}"]
+    p_value = output[f"{sheet_name}!P{i}"]
+    r_value = output[f"{sheet_name}!R{i}"]
+    if(t_value == ""):
+        t_value = 0
+    if(u_value == ""):
+        u_value = 0
+    if(p_value == ""):
+        p_value = 0
+    if(r_value == ""):
+        r_value = 0
+    value = float(output[f"{sheet_name}!F{i}"]) + float(output[f"{sheet_name}!J{i}"]) + float(output[f"{sheet_name}!L{i}"]) + float(output[f"{sheet_name}!M{i}"]) + float(output[f"{sheet_name}!O{i}"]) + float(p_value) + float(r_value) + float(t_value) + float(u_value)
+    output[key] = value
 
-output = log1_Sheet_All()
-output_init_cell("Log1")
-for i in range(7, 66):
-    output_C_cell("Log1", i)
-    output_D_cell("Log1", i)
-    output_E_cell("Log1", i)
-    output_L_cell("Log1", i)
-    output_M_cell("Log1", i)
-    output_O_cell("Log1", i)
-    output_Q_cell("Log1", i)
-    output_P_cell("Log1", i)
-    output_S_cell("Log1", i)
-    output_R_cell("Log1", i)
-    output_T_cell("Log1", i)
-    output_U_cell("Log1", i)
+def output_W_cell(sheet_name, i):
+    global output
+    key = f"{sheet_name}!W{i}"
+    range_list = []
+    sum_range = []
+    # for l in range(6, output["Log1!D3"] + 7):
+    for l in range(6, 727):
+        range_list.append(output[f"Log1!Z{l}"])
+        sum_range.append(output[f"Log1!W{l}"])
+    value = ef.SUMIF(range_list, output[f"{sheet_name}!C{i}"], sum_range)
+    output[key] = value
+
+def output_X_cell(sheet_name, i):
+    global output
+    key = f"{sheet_name}!X{i}"
+    value = data["入力!E20"]
+    output[key] = value
+
+def output_AA_cell(sheet_name, i):
+    global output
+    key = f"{sheet_name}!AA{i}"
+    input_E31 = data["入力!E31"]
+    if(i == 7):
+        value = ""
+    else:
+        value = ef.IFERROR(ef.IF(ef.MOD(output[f"{sheet_name}!D{i}"], input_E31)==0, 1, 0), 0)
+    output[key] = value
+
+def output_Z_cell(sheet_name, i):
+    global output
+    key = f"{sheet_name}!Z{i}"
+    input_G31 = data["入力!G31"]
+    aa_value = output[f"{sheet_name}!AA{i}"]
+    if(aa_value == ""):
+        aa_value = 0
+    value = output[f"{sheet_name}!X{i}"] * input_G31 * output[f"{sheet_name}!AA{i}"]
+    output[key] = value
+
+def output_Y_cell(sheet_name, i):
+    global output
+    key = f"{sheet_name}!Y{i}"
+    input_E21 = data["入力!E21"]
+    if(i == 7):
+        value = ""
+    else:
+        value = ef.IFERROR(ef.IF(ef.MOD(output[f"{sheet_name}!D{i}"], input_E21)==0, 1, 0), 0)
+    output[key] = value
+
+def output_AB_cell(sheet_name, i):
+    global output
+    key = f"{sheet_name}!AB{i}"
+    range_list = []
+    sum_range = []
+    for l in range(6, 727):
+        range_list.append(output[f"Log1!Z{l}"])
+        sum_range.append(output[f"Log1!Y{l}"])
+    value = ef.SUMIF(range_list, output[f"{sheet_name}!C{i}"], sum_range)
+    output[key] = value
+
+def output_AC_cell(sheet_name, i):
+    global output
+    key = f"{sheet_name}!AC{i}"
+    input_E47 = data["入力!E47"]
+    if(i == 67):
+        value = ef.IF(0 > 65, 0, input_E47 * 10000)
+    else:
+        value = ef.IF(output[f"{sheet_name}!E{i}"] > 65, 0, input_E47 * 10000)
+    output[key] = value
+
+def output_AD_cell(sheet_name, i):
+    global output
+    key = f"{sheet_name}!AD{i}"
+    value = output[f"{sheet_name}!W{i}"] + output[f"{sheet_name}!AB{i}"] + output[f"{sheet_name}!AC{i}"]
+    output[key] = value
+
+def output_AE_cell(sheet_name, i):
+    global output
+    key = f"{sheet_name}!AE{i}"
+    value = output[f"{sheet_name}!AD{i}"] - output[f"{sheet_name}!V{i}"]
+    output[key] = value
+
+def output_AF_cell(sheet_name, i):
+    global output
+    key = f"{sheet_name}!AF{i}"
+    input_I11 = output["入力!I11"]
+    if(i == 7):
+        value = output[f"{sheet_name}!AE{i}"] / input_I11
+    else:
+        value = output[f"{sheet_name}!AE{i}"] / 12
+    output[key] = value
+
+def output_AG_cell(sheet_name, i):
+    global output
+    key = f"{sheet_name}!AG{i}"
+    if(i == 7):
+        value = output[f"{sheet_name}!AE{i}"]
+    else:
+        value = output[f"{sheet_name}!AE{i}"] + output[f"{sheet_name}!AG{i - 1}"]
+    output[key] = value
+
+def output_AI_cell(sheet_name, i):
+    global output
+    key = f"{sheet_name}!AI{i}"
+    table = []
+    for l in range(6, 547):
+        col_table = []
+        for m in range(0, 7):
+            if(m == 0):
+                col_table.append(output[f"Log1!E{l}"])
+            elif(m == 1):
+                col_table.append(output[f"Log1!F{l}"])
+            elif(m == 2):
+                col_table.append(output[f"Log1!G{l}"])
+            elif(m == 3):
+                col_table.append(output[f"Log1!H{l}"])
+            elif(m == 4):
+                col_table.append(output[f"Log1!I{l}"])
+            elif(m == 5):
+                col_table.append(output[f"Log1!J{l}"])
+            elif(m == 6):
+                col_table.append(output[f"Log1!K{l}"])
+        table.append(col_table)  
+    value = ef.IFERROR(ef.VLOOKUP(ef.DATE(output[f"{sheet_name}!C{i}"], 12, 1), table, 7, False), 0)
+    if(value == None):
+        value = 0
+    output[key] = value
+
+def output_AJ_cell(sheet_name, i):
+    global output
+    key = f"{sheet_name}!AJ{i}"
+    input_E39 = data["入力!E39"]
+    if(i == 7):
+        value = input_E39
+    else:
+        value = output[f"{sheet_name}!AJ{i - 1}"]
+    output[key] = value
+
+def output_AK_cell(sheet_name, i):
+    global output
+    key = f"{sheet_name}!AK{i}"
+    input_E9 = data["入力!E9"]
+    value = output[f"{sheet_name}!AJ{i}"] / input_E9 * 100
+    output[key] = value
+
+def output_AM_cell(sheet_name, i):
+    global output
+    key = f"{sheet_name}!AM{i}"
+    input_E40 = data["入力!E40"]
+    value = output[f"{sheet_name}!AG{i}"] + output[f"{sheet_name}!AJ{i}"] - output[f"{sheet_name}!AI{i}"]
+    output[key] = value
+
+def output_AE_total(sheet_name):
+    global output
+    key = f"{sheet_name}!AE67"
+    sum_value = 0
+    for i in range(7, 67):
+        value = output[f"{sheet_name}!AE{i}"]
+        sum_value += value
+    output[key] = sum_value
+
+def output_ALL_cell():
+    global output
+    output = log1_Sheet_All()
+    output_init_cell("Log1")
+    for i in range(7, 67):
+        output_C_cell("出力1", i)
+        output_D_cell("出力1", i)
+        output_E_cell("出力1", i)
+        output_F_cell("出力1", i)
+        output_L_cell("出力1", i)
+        output_M_cell("出力1", i)
+        output_O_cell("出力1", i)
+        output_Q_cell("出力1", i)
+        output_P_cell("出力1", i)
+        output_S_cell("出力1", i)
+        output_R_cell("出力1", i)
+        output_T_cell("出力1", i)
+        output_U_cell("出力1", i)
+        output_J_cell("出力1", i)
+        output_V_cell("出力1", i)
+        output_W_cell("出力1", i)
+        output_X_cell("出力1", i)
+        output_AA_cell("出力1", i)
+        output_Z_cell("出力1", i)
+        output_Y_cell("出力1", i)
+        output_AB_cell("出力1", i)
+        output_AC_cell("出力1", i)
+        output_AD_cell("出力1", i)
+        output_AE_cell("出力1", i)
+        output_AF_cell("出力1", i)
+        output_AG_cell("出力1", i)
+        output_AI_cell("出力1", i)
+        output_AJ_cell("出力1", i)
+        output_AK_cell("出力1", i)
+        output_AM_cell("出力1", i)
+    output_AC_cell("出力1", 67)
+    output_AE_total("出力1")
+    return output
