@@ -162,6 +162,23 @@ def set_rate_fs(passed_month: int,
     - year_s, year_e: optional start and end years (ints) to bound when the rate can change
     Returns the rate (float).
     """
+    # converter 2025-10-01
+    if isinstance(d_date, str):
+        # Convert "2025年10月" or "2025-10-01" to a Python date
+        try:
+            if "年" in d_date and "月" in d_date:
+                # Format: 2025年10月 or 2025年10月1日
+                import re
+                m = re.match(r"(\d{4})年(\d{1,2})月", d_date)
+                if m:
+                    year = int(m.group(1))
+                    month = int(m.group(2))
+                    d_date = __import__("datetime").date(year, month, 1)
+            else:
+                # Try parsing as "YYYY-MM-DD"
+                d_date = __import__("datetime").datetime.strptime(d_date, "%Y-%m-%d").date()
+        except Exception:
+            pass
     # Check missing inputs (VBA's IsNull/"" checks)
     if yearly_interval is None or yearly_interval == "" or add_rate is None or add_rate == "":
         return pre_rate
@@ -179,7 +196,7 @@ def set_rate_fs(passed_month: int,
         date_s = __import__("datetime").date(int(year_s), 1, 1)
     if year_e is not None and year_e != "":
         date_e = __import__("datetime").date(int(year_e), 12, 31)
-
+    
     # if d_date is before start or after end, return pre_rate
     if date_s is not None and d_date < date_s:
         return pre_rate

@@ -1,4 +1,4 @@
-from vba_function import monthly_repayment_fs
+from vba_function import monthly_repayment_fs, set_rate_fs
 
 def IF(condition, true_value, false_value):
     if condition:
@@ -56,3 +56,6 @@ def VLOOKUP(date_key, table, col_index, match_type):
         return None
 def MonthlyRepayment_FS(e_month, d_method, F1, F2, d_month, d_rate, pre_pay, pre_repay, dbt_remain):
     return monthly_repayment_fs(e_month, d_method, F1, F2, d_month, d_rate, pre_pay, pre_repay, dbt_remain)
+
+def SetRate_FS(passed_month, d_date, pre_rate, yearly_interval, add_rate, year_s, year_e):
+    return set_rate_fs(passed_month, d_date, pre_rate, yearly_interval, add_rate, year_s, year_e)
