@@ -316,6 +316,22 @@ def calc_rent_fs(passed_month: int,
       rgB[2] -> newRent
     The function returns the rent (rounded similarly to VBA).
     """
+    if isinstance(d_date, str):
+        # Convert "2025年10月" or "2025-10-01" to a Python date
+        try:
+            if "年" in d_date and "月" in d_date:
+                # Format: 2025年10月 or 2025年10月1日
+                import re
+                m = re.match(r"(\d{4})年(\d{1,2})月", d_date)
+                if m:
+                    year = int(m.group(1))
+                    month = int(m.group(2))
+                    d_date = __import__("datetime").date(year, month, 1)
+            else:
+                # Try parsing as "YYYY-MM-DD"
+                d_date = __import__("datetime").datetime.strptime(d_date, "%Y-%m-%d").date()
+        except Exception:
+            pass
     # Extract values (accept values directly or .value objects)
     def val(x):
         return getattr(x, "value", x)

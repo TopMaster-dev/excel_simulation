@@ -106,7 +106,6 @@ def log_F_cell(sheet_name, i):
     else:
         value = data["入力!E14"]
     output[key] = value
-    print(key, '----------', value)
 
 def log_B_cell(sheet_name, i):
     global output
@@ -123,8 +122,8 @@ def log_J_cell(sheet_name, i):
     global output
     key = f"{sheet_name}!J{i}"
     value = 0
-    # if(sheet_name == "Log2" and i >= 7):
-    #     value = ef.IFERROR(ef.IF(ef.MOD(output[f"{sheet_name}!D{i}"], data["入力!E17"] * 12) == 0, ef.IF(output[f"{sheet_name}!K{i - 1}"] < data["入力!G17"], output[f"{sheet_name}!K{i - 1}"], data["入力!G17"]), 0), 0)
+    if(sheet_name == "Log2" and i >= 7):
+        value = ef.IFERROR(ef.IF(ef.MOD(output[f"{sheet_name}!D{i}"], data["入力!E17"] * 12) == 0, ef.IF(output[f"{sheet_name}!K{i - 1}"] < data["入力!G17"], output[f"{sheet_name}!K{i - 1}"], data["入力!G17"]), 0), 0)
     output[key] = value
 
 def log_G_cell(sheet_name, i):
@@ -236,7 +235,12 @@ def log_V_cell(sheet_name, i):
     if(i == 6):
         value = input_E20
     else:
-        value = output[f"{sheet_name}!V{i - 1}"]
+        if(sheet_name == "Log2"):
+            array_value = [data["入力!E21"], data["入力!E22"], data["入力!E23"]]
+            array_value_1 = [data["入力!G21"], data["入力!G22"], data["入力!G23"]]
+            value = ef.calcrent_fs(output[f"{sheet_name}!O{i}"], output[f"{sheet_name}!N{i}"], output[f"{sheet_name}!V{i - 1}"], data["入力!E8"], data["入力!G8"], array_value, array_value_1)
+        else:
+            value = output[f"{sheet_name}!V{i - 1}"]
     output[key] = value
 
 def log_W_cell(sheet_name, i):
@@ -273,24 +277,23 @@ def log1_Sheet_All(sheet_name):
         log_C_cell(sheet_name, i)
         log_E_cell(sheet_name, i)
         log_F_cell(sheet_name, i)
-        # log_B_cell(sheet_name, i)
-        # log_J_cell(sheet_name, i)
-        # log_G_cell(sheet_name, i)
-        # log_I_cell(sheet_name, i)
-        # log_H_cell(sheet_name, i)
-        # log_K_cell(sheet_name, i)
-        # log_L_cell(sheet_name, i)
-        # log_N_cell(sheet_name, i)
-        # log_O_cell(sheet_name, i)
-        # log_P_cell(sheet_name, i)
-        # log_Q_cell(sheet_name, i)
-        # log_R_cell(sheet_name, i)
-        # log_S_cell(sheet_name, i)
-        # log_U_cell(sheet_name, i)
-        # log_V_cell(sheet_name, i)
-        # log_W_cell(sheet_name, i)
-        # log_X_cell(sheet_name, i)
-        # log_Y_cell(sheet_name, i)
-        # log_Z_cell(sheet_name, i)
+        log_B_cell(sheet_name, i)
+        log_J_cell(sheet_name, i)
+        log_G_cell(sheet_name, i)
+        log_I_cell(sheet_name, i)
+        log_H_cell(sheet_name, i)
+        log_K_cell(sheet_name, i)
+        log_L_cell(sheet_name, i)
+        log_N_cell(sheet_name, i)
+        log_O_cell(sheet_name, i)
+        log_P_cell(sheet_name, i)
+        log_Q_cell(sheet_name, i)
+        log_R_cell(sheet_name, i)
+        log_S_cell(sheet_name, i)
+        log_U_cell(sheet_name, i)
+        log_V_cell(sheet_name, i)
+        log_W_cell(sheet_name, i)
+        log_X_cell(sheet_name, i)
+        log_Y_cell(sheet_name, i)
+        log_Z_cell(sheet_name, i)
     return output
-log1_Sheet_All("Log2")
